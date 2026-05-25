@@ -5,25 +5,6 @@ A Distributed Background Task Processing System written in Java, using Redis for
 **High level overview**
     ![overview](WorkQueue.png)
 
-## The Problem
-
-When a user performs an action on a website — like signing up — the server might need to do several things: send a welcome email, resize a profile picture, generate a PDF report, and more.
-
-If all of this happens **inside the same API call**, the user has to wait until every single task finishes before getting a response. This leads to:
-
-- Slow response times
-- Poor user experience
-- Server overload during traffic spikes
-- If one task crashes, the entire request fails
-
-
-## The Discovery
-
-The key insight is simple: **not everything needs to happen immediately.**
-
-When a user signs up, you don't need to send the email *right now* — you just need to make sure it gets sent *eventually*, in the background, without making the user wait.
-
-This is exactly what WorkQueue solves.
 
 
 ## What's the need for this?
@@ -32,6 +13,7 @@ This system is designed to handle the processing and execution of background tas
 
 **Example:** When a user signs in to your website and clicks the login button, you might want to send them a welcome email. If that email task is part of the API call, the user would have to wait until the email is sent. Instead, you can add the "send_email" task to WorkQueue and let it handle the execution in the background. 
 
+This is exactly what WorkQueue solves.
 The user gets an instant response. The heavy work happens in the background.
 
 **Note:** This is built to be modular — any type of job can be added to it, not just sending emails. You just need to add the logic for that job as described below.
